@@ -28,13 +28,15 @@ export default new Vuex.Store({
     },
     mutations: {
         addTask(state, newTaskTitle) {
+
             let newTask = {
                 id: Date.now(),
                 title: newTaskTitle,
                 done: false,
             };
-            state.tasks.push(newTask);
-
+            if (newTask.title) {
+                state.tasks.push(newTask);
+            }
         },
 
         doneTask(state, id) {
@@ -44,6 +46,10 @@ export default new Vuex.Store({
 
         deleteTask(state, id) {
             state.tasks = state.tasks.filter((task) => task.id !== id);
+        },
+        updateTaskTitle(state, payload) {
+            let task = state.tasks.filter((task) => task.id === payload.id)[0];
+            task.title = payload.title
         },
 
         showSnackbar(state, text) {
@@ -66,13 +72,19 @@ export default new Vuex.Store({
     },
     actions: {
         addTask({ commit }, newTaskTitle) {
-            commit('addTask', newTaskTitle)
-            commit('showSnackbar', 'Task added!')
+            if (newTaskTitle) {
+                commit('addTask', newTaskTitle)
+                commit('showSnackbar', 'Task added!')
+            } else {
+                commit('showSnackbar', 'Task field is required!')
+            }
+
         },
         deleteTask({ commit }, id) {
             commit('deleteTask', id)
             commit('showSnackbar', 'Task deleted!')
-        }
+        },
+
     },
     modules: {}
 })
