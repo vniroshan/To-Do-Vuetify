@@ -5,22 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        tasks: [{
-                id: 1,
-                title: "wak up",
-                done: false,
-            },
-            {
-                id: 2,
-                title: "Get bananas",
-                done: false,
-            },
-            {
-                id: 3,
-                title: "Eat bananas",
-                done: false,
-            },
-        ],
+        tasks: [],
         snackbar: {
             show: false,
             text: ""
