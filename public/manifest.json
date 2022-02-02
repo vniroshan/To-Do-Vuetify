@@ -1,13 +1,13 @@
 {
-    "name": "vuetify-todo-pwa",
-    "short_name": "vuetify-todo",
+    "name": "todo niro",
+    "short_name": "todo-niro",
     "icons": [{
-            "src": "./img/icons/android-chrome-192x192.png",
+            "src": "./img/icons/niroshmedia-192x192.png",
             "sizes": "192x192",
             "type": "image/png"
         },
         {
-            "src": "./img/icons/android-chrome-512x512.png",
+            "src": "./img/icons/niroshmedia-512x512.png",
             "sizes": "512x512",
             "type": "image/png"
         }
