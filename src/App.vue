@@ -1,76 +1,54 @@
 <template>
-  <v-app id="inspire">
-    <v-navigation-drawer v-model="drawer" app>
-      <v-list-item>
-        <v-list-item-content>
-          <v-list-item-title class="text-h6"> ToDo </v-list-item-title>
-          <v-list-item-subtitle> subtext </v-list-item-subtitle>
-        </v-list-item-content>
-      </v-list-item>
-
-      <v-divider></v-divider>
-
-      <v-list dense nav>
-        <v-list-item v-for="item in items" :key="item.title" :to="item.to" link>
-          <v-list-item-icon>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-icon>
-
-          <v-list-item-content>
-            <v-list-item-title>{{ item.title }}</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list>
-    </v-navigation-drawer>
-
-    <v-app-bar app color="primary" dark src="image1.jpg" prominent>
-      <template v-slot:img="{ props }">
-        <v-img
-          v-bind="props"
-          gradient="to top right, rgba(19,84,122,.5), rgba(128,208,199,.8)"
-        ></v-img>
-      </template>
-
-      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-
-      <v-toolbar-title>Todo</v-toolbar-title>
-
-      <v-spacer></v-spacer>
-
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
-
-      <v-btn icon>
-        <v-icon>mdi-heart</v-icon>
-      </v-btn>
-
-      <v-btn icon>
-        <v-icon>mdi-dots-vertical</v-icon>
-      </v-btn>
-    </v-app-bar>
-
-    <v-main>
-      <router-view></router-view>
-      <snackbar/>
-    </v-main>
-  </v-app>
+  <div id="app">
+    <router-view></router-view>
+    <div class="refresh-container" v-if="hashChanged && $root.env !== 'development'">
+      <div class="notification-header">
+        <button type="button" class="close-refresh-modal" @click="closeModal" aria-label="Close">
+          <span aria-hidden="true"><i class="fal fa-times fa-sm"></i></span>
+        </button>
+      </div>
+      <div class="notification-body">
+        <div class="notification-button">
+          <p class="text-center font12">An update is available. Please save all current work and click update below. You can also accept these updates by refreshing your browswer at any time.</p>
+          <p class="text-center"><span class="font10">Not updating may result in errors.</span></p>
+        </div>
+        <div class="refresh-button text-center">
+          <button class="btn btn-default" @click="reloadApp">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-
+// mixins
+import { refreshPageMixin } from '@/components/mixins/refresh-page.mixin';
 export default {
-  data: () => {
-    return {
-      items: [
-        { title: "Dashboard", icon: "mdi-format-list-checks", to: "/" },
-        { title: "About", icon: "mdi-help-box", to: "/about" },
-      ],
-      drawer: null,
-    };
+  data() {
+    return {}
   },
-  components: {
-    snackbar: require("@/components/Shared/Snackbar.vue").default,
-  },
-};
+  components: {},
+  mixins: [refreshPageMixin],
+  created() {},
+  methods: {}
+}
 </script>
+<style lang="scss" scoped>
+.refresh-container {
+  width: 15%;
+  position: fixed;
+  bottom: 10px;
+  right: 15px;
+  background-color: white;
+  padding: 25px;
+  -webkit-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.05);
+  box-shadow:0 1px 4px rgba(0, 0, 0, 0.3), 0 0 40px rgba(0, 0, 0, 0.05);
+}
+.close-refresh-modal {
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  border: none;
+}
+</style>
