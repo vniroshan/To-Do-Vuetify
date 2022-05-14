@@ -8,10 +8,10 @@ export const refreshPageMixin = {
     }
   },
   methods: {
-    initVersionCheck(url, frequency = 1000 * 60 * 2) {
-      console.log('niro')
+    initVersionCheck(url, frequency = 1000) {
       setInterval(() => {
         this.checkVersion(url);
+        console.log('niro')
       }, frequency);
     },
     async checkVersion(url) {

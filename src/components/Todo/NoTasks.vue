@@ -3,7 +3,7 @@
    
      class="no-task">
       <v-icon size="100" color="primary"> mdi-check </v-icon>
-      <div class="text-h5 primary--text">No Tasks 19</div>
+      <div class="text-h5 primary--text">No Tasks 20</div>
     </div>
 </template>
 
