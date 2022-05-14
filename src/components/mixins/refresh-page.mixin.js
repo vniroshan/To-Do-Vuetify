@@ -3,7 +3,7 @@ import axios from 'axios';
 export const refreshPageMixin = {
   data: () => {
     return {
-       currentHash: '',
+       currentHash: '{{POST_BUILD_ENTERS_HASH_HERE}}',
       hashChanged: false,
       newHash: '',
       items: [
@@ -43,7 +43,7 @@ export const refreshPageMixin = {
       }
     },
     hasHashChanged(currentHash, newHash) {
-      if (!currentHash) {
+      if (!currentHash || currentHash === '{{POST_BUILD_ENTERS_HASH_HERE}}') {
         return true;
       }
       return currentHash !== newHash;
