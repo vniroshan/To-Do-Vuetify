@@ -4,7 +4,7 @@ import { register } from 'register-service-worker'
 console.log(process.env.NODE_ENV)
 console.log(process.env.BASE_URL)
 if (process.env.NODE_ENV === 'production') {
-  register(`/opt/build/repo/dist/service-worker.js`, {
+  register(`/dist/service-worker.js`, {
     ready () {
       console.log(
         `${process.env.BASE_URL}`+
