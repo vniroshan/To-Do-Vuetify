@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    {{hashChanged}}{{$root.env}}
+    {{hashChanged}}
     <router-view></router-view>
     <div class="refresh-container" v-if="hashChanged && $root.env !== 'development'">
       <div class="notification-header">
@@ -23,62 +23,15 @@
 
 <script>
 // mixins
-import axios from 'axios';
+import { refreshPageMixin } from '@/components/mixins/refresh-page.mixin';
 export default {
   data() {
-    return {
-       currentHash: '{{POST_BUILD_ENTERS_HASH_HERE}}',
-      token: localStorage.getItem('user-token'),
-      hashChanged: false,
-      newHash: '',
-      items: [
-        { title: "Dashboard", icon: "mdi-format-list-checks", to: "/" },
-        { title: "About", icon: "mdi-help-box", to: "/about" },
-      ],
-      drawer: null,
-    };
+    return {}
   },
- components: {
-    snackbar: require("@/components/Shared/Snackbar.vue").default,
-  },
-  methods: {
-    initVersionCheck(url, frequency = 1000 * 60 * 2) {
-      setInterval(() => {
-        this.checkVersion(url);
-      }, frequency);
-    },
-    async checkVersion(url) {
-      try {
-        const fileResponse = await axios.create({
-          baseURL: `${this.$root.url}`,
-          headers: {
-            'Authorization': 'JWT ' + this.token,
-            'Content-type': 'application/json'
-          }
-        }).get(url + '?t=' + new Date().getTime());
-       this.newHash = fileResponse.data.hash;
-
-        this.hashChanged = this.hasHashChanged(this.currentHash, this.newHash);
-      } catch (error) {
-        this.loading = false;
-        if (!error.response) {
-          this.errorStatus = 'Error: Network Error'
-        } else {
-          this.errorStatus = error.response.data.message;
-        }
-      }
-    },
-    hasHashChanged(currentHash, newHash) {
-      if (!currentHash || currentHash === '{{POST_BUILD_ENTERS_HASH_HERE}}') {
-        return true;
-      }
-      return currentHash !== newHash;
-    },
-    reloadApp() {
-      this.currentHash = this.newHash;
-      window.location.reload();
-    }
-  } 
+  components: {},
+  mixins: [refreshPageMixin],
+  created() {},
+  methods: {}
 }
 </script>
 <style lang="scss" scoped>
