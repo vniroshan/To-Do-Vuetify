@@ -33,7 +33,7 @@ export default {
   created() {},
   methods: {},
   mounted(){
-this.initVersionCheck('/../dist/version.json');
+this.initVersionCheck('/../#/dist/version.json');
 }
 }
 </script>

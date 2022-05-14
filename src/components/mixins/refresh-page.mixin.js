@@ -1,17 +1,25 @@
+
+import axios from 'axios';
 export const refreshPageMixin = {
-  data() {
+  data: () => {
     return {
-      currentHash: '{{POST_BUILD_ENTERS_HASH_HERE}}',
-      token: localStorage.getItem('user-token'),
+       currentHash: '{{POST_BUILD_ENTERS_HASH_HERE}}',
       hashChanged: false,
-      newHash: ''
-    }
+      newHash: '',
+      items: [
+        { title: "Dashboard", icon: "mdi-format-list-checks", to: "/" },
+        { title: "About", icon: "mdi-help-box", to: "/about" },
+      ],
+      drawer: null,
+    };
+  },
+  components: {
+    snackbar: require("@/components/Shared/Snackbar.vue").default,
   },
   methods: {
     initVersionCheck(url, frequency = 1000) {
       setInterval(() => {
         this.checkVersion(url);
-        console.log('niro')
       }, frequency);
     },
     async checkVersion(url) {
@@ -19,12 +27,10 @@ export const refreshPageMixin = {
         const fileResponse = await axios.create({
           baseURL: `${this.$root.url}`,
           headers: {
-            'Authorization': 'JWT ' + this.token,
             'Content-type': 'application/json'
           }
         }).get(url + '?t=' + new Date().getTime());
-
-        this.newHash = fileResponse.data.hash;
+       this.newHash = fileResponse.data.hash;
 
         this.hashChanged = this.hasHashChanged(this.currentHash, this.newHash);
       } catch (error) {
@@ -40,12 +46,11 @@ export const refreshPageMixin = {
       if (!currentHash || currentHash === '{{POST_BUILD_ENTERS_HASH_HERE}}') {
         return true;
       }
-
       return currentHash !== newHash;
     },
     reloadApp() {
       this.currentHash = this.newHash;
       window.location.reload();
     }
-  }
+  } 
 };
