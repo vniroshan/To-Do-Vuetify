@@ -22,7 +22,7 @@ let mainBundleFile = '';
 let mainBundleRegexp = /^app.?([a-z0-9]*)?.js$/;
 
 // read the dist folder files and find the one we're looking for
-readDir(path.join(__dirname, '/../dist/static/js'))
+readDir(path.join(__dirname, '/../dist/js'))
   .then(files => {
     mainBundleFile = files.find(f => mainBundleRegexp.test(f));
 
@@ -49,7 +49,7 @@ readDir(path.join(__dirname, '/../dist/static/js'))
     console.log(`Replacing hash in the ${mainBundleFile}`);
 
     // replace hash placeholder in our main.js file so the code knows it's current hash
-    const mainFilepath = path.join(__dirname, '../dist/static/js', mainBundleFile);
+    const mainFilepath = path.join(__dirname, '../dist/js', mainBundleFile);
     return readFile(mainFilepath, 'utf8')
       .then(mainFileData => {
         const replacedFile = mainFileData.replace('{{POST_BUILD_ENTERS_HASH_HERE}}', mainHash);
