@@ -8,7 +8,7 @@ export const refreshPageMixin = {
     }
   },
   methods: {
-    initVersionCheck(url, frequency = 1000) {
+    initVersionCheck(url, frequency = 1000 * 60 * 2) {
       console.log('niro')
       setInterval(() => {
         this.checkVersion(url);
