@@ -31,7 +31,10 @@ export default {
   components: {},
   mixins: [refreshPageMixin],
   created() {},
-  methods: {}
+  methods: {},
+  mounted(){
+this.initVersionCheck('/version.json');
+}
 }
 </script>
 <style lang="scss" scoped>
