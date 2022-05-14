@@ -1,5 +1,6 @@
 const manifestJSON = require('./public/manifest.json')
 module.exports = {
+    filenameHashing: true,
     transpileDependencies: [
         'vuetify'
     ],

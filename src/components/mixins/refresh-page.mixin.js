@@ -4,7 +4,6 @@ export const refreshPageMixin = {
   data: () => {
     return {
        currentHash: '{{POST_BUILD_ENTERS_HASH_HERE}}',
-      token: localStorage.getItem('user-token'),
       hashChanged: false,
       newHash: '',
       items: [
@@ -28,7 +27,6 @@ export const refreshPageMixin = {
         const fileResponse = await axios.create({
           baseURL: `${this.$root.url}`,
           headers: {
-            'Authorization': 'JWT ' + this.token,
             'Content-type': 'application/json'
           }
         }).get(url + '?t=' + new Date().getTime());
